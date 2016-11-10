@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import {Observable} from 'rxjs/Observable';
 
 /*
   Generated class for the WalmartService provider.
@@ -11,8 +12,33 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class WalmartService {
 
-  constructor(public http: Http) {
+  constructor(public http:Http) {
     console.log('Hello WalmartService Provider');
+    
   }
+ data: any;
+  
+  load() {
+  if (this.data) {
+    // already loaded data
+    return Promise.resolve(this.data);
+  }
+
+  // don't have the data yet
+  return new Promise(resolve => {
+    // We're using Angular HTTP provider to request the data,
+    // then on the response, it'll map the JSON data to a parsed JS object.
+    // Next, we process the data and resolve the promise with the new data.
+    //this.http.get('path/to/data.json')
+    var url = 'http://api.walmartlabs.com/v1/stores?format=json&zip=30066&apiKey=uu99pmfhgdm5x3hytebw5d82';
+   this.http.get(url).map(res => res.json()).subscribe(data => {
+        // we've got back the raw data, now generate the core schedule data
+        // and save the data for later reference
+          this.data = data.resuls; //data;
+        resolve(this.data);
+         
+      });
+  });
+}
 
 }
