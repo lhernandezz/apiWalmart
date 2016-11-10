@@ -16,9 +16,9 @@ export class WalmartService {
     console.log('Hello WalmartService Provider');
     
   }
- data: any;
+ public data: any;
   
-  load() {
+ public load() {
   if (this.data) {
     // already loaded data
     return Promise.resolve(this.data);
@@ -35,7 +35,7 @@ export class WalmartService {
         // we've got back the raw data, now generate the core schedule data
         // and save the data for later reference
           this.data = data.resuls; //data;
-        resolve(this.data);
+       return  resolve(this.data);
          
       });
   });
