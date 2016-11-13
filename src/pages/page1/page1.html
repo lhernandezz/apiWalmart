@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Walmart Store Locator</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="home">
+      <button ion-button secondary menuToggle>Toggle Menu</button>
+    <ion-list inset>
+        <ion-item>
+            <ion-label>ZipCode</ion-label>
+            <ion-input [(ngModel)]="zipcode" type="text"></ion-input>
+        </ion-item>
+    </ion-list>
+    <div padding>
+        <button block (click)="getRepos()">Search</button>
+    </div>
+    <ion-card *ngFor="let repo of foundRepos" (click)="goToDetails(repo)">
+
+        <ion-card-content>
+            {{ repo.name }}
+        <div class="item-note" item-right>{{ repo.streetAddress }} </div>
+         <div class="item-note" item-right>{{ repo.city }} </div>
+          <div class="item-note" item-right>{{ repo.stateProvCode }} </div>
+          <div class="item-note" item-right>{{ repo.phoneNumber }} </div>
+        </ion-card-content>
+    </ion-card>
+</ion-content>
